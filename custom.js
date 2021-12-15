@@ -6,7 +6,6 @@ repositoryList.forEach(repository => {
     repository = base + repository;
     let message;
     let diff = exec('git reset HEAD . && git diff', {cwd: repository}).toString("utf8").trim();
-    console.log(argvs);
     try {
         if (argvs[1] === 'pull') {
             if (diff) {
