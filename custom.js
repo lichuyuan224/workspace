@@ -1,6 +1,6 @@
 const exec = require('child_process').execSync;
-let base = 'company/smartcmp-ui/';
-const repositoryList = ['', 'static/common', 'static/core'];
+let base = process.cwd() === 'D:\\workspace\\company\\smartcmp-ui-other' ? process.cwd() : 'D:\\workspace\\company\\smartcmp-ui';
+const repositoryList = ['/', '/static/common', '/static/core'];
 const argvs = process.argv.splice(2);
 repositoryList.forEach(repository => {
     repository = base + repository;
