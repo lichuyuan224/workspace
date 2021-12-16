@@ -6,6 +6,7 @@ repositoryList.forEach(repository => {
     repository = base + repository;
     let message;
     let diff = exec('git reset HEAD . && git diff', {cwd: repository}).toString("utf8").trim();
+    let current = exec('git rev-parse --abbrev-ref HEAD', {cwd: repository}).toString("utf8").trim();
     try {
         if (argvs[1] === 'pull') {
             if (diff) {
@@ -19,7 +20,7 @@ repositoryList.forEach(repository => {
             if (diff) {
                 message = exec(`git add . && git stash && git pull --rebase && git push origin HEAD:refs/for/${argvs[1] || 'master'} && git stash pop`, {cwd: repository});
             } else {
-                message = exec(`git pull --rebase && git push origin HEAD:refs/for/${argvs[2] || 'master'}`, {cwd: repository});
+                message = exec(`git pull --rebase && git push origin HEAD:refs/for/${argvs[2] || current}`, {cwd: repository});
             }
         } else {
             message = exec(argvs.join(' '), {cwd: repository});
