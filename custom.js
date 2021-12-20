@@ -18,7 +18,7 @@ repositoryList.forEach(repository => {
             }
         } else if (argvs[1] === 'push') {
             if (diff) {
-                message = exec(`git add . && git stash && git pull --rebase && git push origin HEAD:refs/for/${argvs[1] || 'master'} && git stash pop`, {cwd: repository});
+                message = exec(`git add . && git stash && git pull --rebase && git push origin HEAD:refs/for/${argvs[2] || 'master'} && git stash pop`, {cwd: repository});
             } else {
                 message = exec(`git pull --rebase && git push origin HEAD:refs/for/${argvs[2] || current}`, {cwd: repository});
             }
