@@ -1,8 +1,19 @@
 const exec = require('child_process').execSync;
-let base = process.cwd() === 'D:\\workspace\\company\\smartcmp-ui-other' ? process.cwd() : 'D:\\workspace\\company\\smartcmp-ui';
-const repositoryList = ['/', '/static/common', '/static/core'];
+let base = process.cwd();
+
+const repositoryListMap = {
+    'D:\\workspace\\company\\smartcmp-ui': ['/', '/static/common', '/static/core'],
+    'D:\\workspace\\company\\smartcmp-ui-other': ['/', '/static/common', '/static/core'],
+    'D:\\workspace\\company\\smartcmp-components': ['/'],
+};
+
 const argvs = process.argv.splice(2);
-repositoryList.forEach(repository => {
+
+if (!repositoryListMap[base]) {
+    base = 'D:\\workspace\\company\\smartcmp-ui';
+}
+
+repositoryListMap[base].forEach(repository => {
     repository = base + repository;
     let message;
     let diff = exec('git reset HEAD . && git diff', {cwd: repository}).toString("utf8").trim();
